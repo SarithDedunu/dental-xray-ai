@@ -18,18 +18,13 @@ export function UploadPage({ onAnalysisComplete, onError }: UploadPageProps) {
   const [progress, setProgress] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    // Validate file type
+  const handleSelectedFile = (file: File) => {
     const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
     if (!validTypes.includes(file.type)) {
       onError('Invalid file type. Please upload a JPG or PNG image.');
       return;
     }
 
-    // Validate file size (max 10MB)
     if (file.size > 10 * 1024 * 1024) {
       onError('File size too large. Please upload an image smaller than 10MB.');
       return;
@@ -40,13 +35,32 @@ export function UploadPage({ onAnalysisComplete, onError }: UploadPageProps) {
     setPreviewUrl(url);
   };
 
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      handleSelectedFile(file);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+      const file = files[0];
+      handleSelectedFile(file);
+    }
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
   const handleUpload = async () => {
     if (!selectedFile) return;
 
     setIsLoading(true);
     setProgress(0);
 
-    // Simulate progress
     const progressInterval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 90) {
@@ -58,15 +72,13 @@ export function UploadPage({ onAnalysisComplete, onError }: UploadPageProps) {
     }, 200);
 
     try {
-      // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 3000));
-      
-      // Mock analysis result
+
       const mockResult: AnalysisResult = {
         predictedClass: Math.random() > 0.5 ? 'Cavity Detected' : 'Healthy Tooth',
-        confidence: Math.random() * 20 + 80, // 80-100%
+        confidence: Math.random() * 20 + 80,
         imageUrl: previewUrl,
-        heatmapUrl: `https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=400&h=400&fit=crop&crop=center`
+        heatmapUrl: `https://images.unsplash.com/photo-1609840114035-3c981b782dfe?w=400&h=400&fit=crop&crop=center`,
       };
 
       setProgress(100);
@@ -75,25 +87,10 @@ export function UploadPage({ onAnalysisComplete, onError }: UploadPageProps) {
         setIsLoading(false);
         onAnalysisComplete(mockResult);
       }, 500);
-
     } catch (error) {
       clearInterval(progressInterval);
       setIsLoading(false);
       onError('Analysis failed. Please try again.');
-    }
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    const files = e.dataTransfer.files;
-    if (files.length > 0) {
-      const file = files[0];
-      const event = { target: { files: [file] } } as React.ChangeEvent<HTMLInputElement>;
-      handleFileSelect(event);
     }
   };
 
@@ -148,8 +145,8 @@ export function UploadPage({ onAnalysisComplete, onError }: UploadPageProps) {
               </div>
 
               {selectedFile && (
-                <Button 
-                  onClick={handleUpload} 
+                <Button
+                  onClick={handleUpload}
                   disabled={isLoading}
                   className="w-full"
                   size="lg"
@@ -175,7 +172,7 @@ export function UploadPage({ onAnalysisComplete, onError }: UploadPageProps) {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  
+
                   {isLoading && (
                     <div className="space-y-2">
                       <div className="flex items-center justify-between text-sm">
