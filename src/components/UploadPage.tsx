@@ -95,18 +95,18 @@ export function UploadPage({ onAnalysisComplete, onError }: UploadPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-background p-4">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className="min-h-screen bg-background p-6">
+      <div className="max-w-5xl mx-auto space-y-10">
         <div className="text-center space-y-4">
-          <h1 className="text-3xl font-bold">Upload Dental X-ray</h1>
+          <h1 className="text-3xl font-bold tracking-tight">Upload Dental X-ray</h1>
           <p className="text-muted-foreground">
-            Upload your dental X-ray image to receive an AI-powered diagnosis with visual explanations
+            Upload your dental X-ray image to receive an AI-powered diagnosis with visual explanations.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Upload Section */}
-          <Card>
+<Card className="rounded-2xl border border-gray-300 shadow-sm bg-white">
             <CardHeader>
               <CardTitle className="flex items-center">
                 <FileImage className="mr-2 h-5 w-5" />
@@ -115,7 +115,7 @@ export function UploadPage({ onAnalysisComplete, onError }: UploadPageProps) {
             </CardHeader>
             <CardContent className="space-y-4">
               <div
-                className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary/50 transition-colors cursor-pointer"
+                className="rounded-xl p-8 text-center border border-dashed border-muted-foreground/30 hover:border-primary/50 transition-colors cursor-pointer"
                 onDragOver={handleDragOver}
                 onDrop={handleDrop}
                 onClick={() => fileInputRef.current?.click()}
@@ -158,7 +158,7 @@ export function UploadPage({ onAnalysisComplete, onError }: UploadPageProps) {
           </Card>
 
           {/* Preview Section */}
-          <Card>
+<Card className="rounded-2xl border border-gray-300 shadow-sm bg-white">
             <CardHeader>
               <CardTitle>Preview</CardTitle>
             </CardHeader>

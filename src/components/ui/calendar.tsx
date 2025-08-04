@@ -59,15 +59,17 @@ function Calendar({
         day_hidden: "invisible",
         ...classNames,
       }}
-      // @ts-ignore: react-day-picker types don't support IconLeft/Right but this works
-      components={{
-        IconLeft: ({ className }: { className?: string }) => (
-          <ChevronLeft className={cn("size-4", className)} />
-        ),
-        IconRight: ({ className }: { className?: string }) => (
-          <ChevronRight className={cn("size-4", className)} />
-        ),
-      }}
+      components={
+        {
+          IconLeft: ({ className }: { className?: string }) => (
+            <ChevronLeft className={cn("size-4", className)} />
+          ),
+          IconRight: ({ className }: { className?: string }) => (
+            <ChevronRight className={cn("size-4", className)} />
+          ),
+        } as any
+      }
+
       {...props}
     />
   );

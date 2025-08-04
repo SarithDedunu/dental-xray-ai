@@ -76,25 +76,21 @@ export function AboutPage() {
   return (
     <div className="min-h-screen bg-background p-4">
       <div className="max-w-6xl mx-auto space-y-12">
-        {/* Header */}
         <div className="text-center space-y-4">
           <h1 className="text-4xl font-bold">How Our System Works</h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-gray-500 max-w-3xl mx-auto">
             Our AI-powered dental X-ray diagnosis system combines advanced machine learning 
             with explainable AI techniques to provide accurate and transparent results.
           </p>
         </div>
 
-        {/* Step-by-step Process */}
         <section className="space-y-8">
           <h2 className="text-3xl font-bold text-center">Analysis Process</h2>
-          
           <div className="space-y-8">
             {steps.map((step, index) => (
-              <Card key={index} className="overflow-hidden">
+              <Card key={index} className="overflow-hidden border border-gray-200 shadow-md">
                 <CardContent className="p-0">
                   <div className="grid grid-cols-1 lg:grid-cols-3 min-h-[200px]">
-                    {/* Icon and Number */}
                     <div className="bg-muted/30 p-8 flex flex-col items-center justify-center text-center">
                       <div className="w-16 h-16 bg-background rounded-full flex items-center justify-center mb-4 shadow-sm">
                         {step.icon}
@@ -103,21 +99,16 @@ export function AboutPage() {
                         Step {index + 1}
                       </div>
                     </div>
-                    
-                    {/* Content */}
                     <div className="lg:col-span-2 p-8 flex flex-col justify-center">
                       <h3 className="text-2xl font-bold mb-3">{step.title}</h3>
-                      <p className="text-muted-foreground mb-4 leading-relaxed">
+                      <p className="text-gray-600 mb-4 leading-relaxed">
                         {step.description}
                       </p>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <ul className="list-disc list-inside text-sm text-gray-800 space-y-1">
                         {step.details.map((detail, i) => (
-                          <div key={i} className="flex items-center text-sm">
-                            <div className="w-2 h-2 bg-primary rounded-full mr-2" />
-                            {detail}
-                          </div>
+                          <li key={i}>{detail}</li>
                         ))}
-                      </div>
+                      </ul>
                     </div>
                   </div>
                 </CardContent>
@@ -126,13 +117,11 @@ export function AboutPage() {
           </div>
         </section>
 
-        {/* Technologies Used */}
         <section className="space-y-8">
           <h2 className="text-3xl font-bold text-center">Technologies Used</h2>
-          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {technologies.map((tech, index) => (
-              <Card key={index}>
+              <Card key={index} className="border border-gray-200 shadow-sm">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-3">
                     <Badge className={tech.color}>
@@ -148,13 +137,11 @@ export function AboutPage() {
           </div>
         </section>
 
-        {/* Key Features */}
         <section className="space-y-8">
           <h2 className="text-3xl font-bold text-center">Key Features</h2>
-          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {features.map((feature, index) => (
-              <Card key={index}>
+              <Card key={index} className="border border-gray-200 shadow-sm">
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     {feature.icon}
@@ -169,16 +156,15 @@ export function AboutPage() {
           </div>
         </section>
 
-        {/* Disclaimer */}
-        <Card className="bg-yellow-50 dark:bg-yellow-950 border-yellow-200 dark:border-yellow-800">
+        <Card className="bg-yellow-100 border border-yellow-300 text-yellow-900 shadow-sm">
           <CardHeader>
-            <CardTitle className="flex items-center text-yellow-800 dark:text-yellow-200">
+            <CardTitle className="flex items-center">
               <Shield className="mr-2 h-5 w-5" />
               Important Disclaimer
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-yellow-700 dark:text-yellow-300 space-y-2">
+            <div className="space-y-2">
               <p>
                 This AI dental diagnosis system is designed for educational and research purposes only. 
                 The results provided should not be used as a substitute for professional medical advice, 
